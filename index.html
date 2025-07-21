@@ -7,6 +7,7 @@
 <body>
   <h1>Hello, World!</h1>
   <p><button id="shareBtn">Share MDN!</button></p>
+  <p><button id="shareBtnLocal">Share MDN Local!</button></p>
   <p class="result"></p>
   <script>
     // const shareData = {
@@ -36,6 +37,28 @@
         .catch((error) => console.log('Error sharing', error));
       } else {
         alert('Web Share API is not supported in your browser.');
+      }
+    });
+
+    document.getElementById('shareBtnLocal').addEventListener('click', () => {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Check this out!',
+          text: 'Really cool content here.',
+          url: window.location.href,
+        })
+        .then(() => {
+          console.log('Shared successfully!');
+        })
+        .catch((error) => {
+          if (error.name === 'AbortError') {
+            console.log('User canceled the share.');
+          } else {
+            console.error('Share failed:', error);
+          }
+        });
+      } else {
+        alert('Web Share API not supported.');
       }
     });
   </script>
