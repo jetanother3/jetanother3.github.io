@@ -6,24 +6,38 @@
 </head>
 <body>
   <h1>Hello, World!</h1>
-  <p><button>Share MDN!</button></p>
+  <p><button id="shareBtn">Share MDN!</button></p>
   <p class="result"></p>
   <script>
-    const shareData = {
-      title: "MDN",
-      text: "Learn web development on MDN!",
-      url: "https://webhook.site/cdaf62ba-29c8-467b-a754-692345a92c7f",
-    };
-    const btn = document.querySelector("button");
-    const resultPara = document.querySelector(".result");
-    btn.addEventListener("click", async () => {
-      try {
-        await navigator.share(shareData);
-        resultPara.textContent = "MDN shared successfully";
-      } catch (err) {
-        resultPara.textContent = `Error: ${err}`;
+    // const shareData = {
+    //   title: "MDN",
+    //   text: "Learn web development on MDN!",
+    //   url: "https://webhook.site/cdaf62ba-29c8-467b-a754-692345a92c7f",
+    // };
+    // const btn = document.querySelector("button");
+    // const resultPara = document.querySelector(".result");
+    // btn.addEventListener("click", async () => {
+    //   try {
+    //     await navigator.share(shareData);
+    //     resultPara.textContent = "MDN shared successfully";
+    //   } catch (err) {
+    //     resultPara.textContent = `Error: ${err}`;
+    //   }
+    // })
+
+    document.getElementById('shareBtn').addEventListener('click', () => {
+      if (navigator.share) {
+        navigator.share({
+          title: "MDN",
+          text: "Learn web development on MDN!",
+          url: "https://webhook.site/cdaf62ba-29c8-467b-a754-692345a92c7f",
+        })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing', error));
+      } else {
+        alert('Web Share API is not supported in your browser.');
       }
-    })
+    });
   </script>
 </body>
 </html>
