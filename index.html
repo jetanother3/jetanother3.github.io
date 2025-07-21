@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Simple CSP Page</title>
-  <button type="button">Click Me</button>
 </head>
 <body>
   <h1>Hello, World!</h1>
-  
+  <p><button>Share MDN!</button></p>
+  <p class="result"></p>
   <script>
     const shareData = {
       title: "MDN",
@@ -15,6 +15,7 @@
       url: "https://webhook.site/cdaf62ba-29c8-467b-a754-692345a92c7f",
     };
     const btn = document.querySelector("button");
+    const resultPara = document.querySelector(".result");
     btn.addEventListener("click", async () => {
       try {
         await navigator.share(shareData);
