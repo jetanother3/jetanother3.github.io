@@ -27,7 +27,7 @@
     async function doShare() {
         if (navigator.share) {
           try {
-            await navigator.share({
+            navigator.share({
               title: 'Test Share',
               text: 'Sharing from desktop',
               url: 'https://webhook.site/02190199-46a6-4c10-bdd3-677898d5615b',
