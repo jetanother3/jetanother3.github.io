@@ -6,28 +6,30 @@
 </head>
 <body>
   <h1>Hello, World!</h1>
-  <p><button id="shareBtn">Share MDN!</button></p>
+  <p><button id="shareBtn" onclick="doShare()">Share MDN!</button></p>
   <p class="result"></p>
   <script>
-    const shareData = {
-      title: "MDN",
-      text: "Learn web development on MDN!",
-      url: "https://webhook.site/02190199-46a6-4c10-bdd3-677898d5615b",
-    };
-    const btn = document.querySelector("shareBtn");
-    const resultPara = document.querySelector(".result");
-    btn.addEventListener("click", async () => {
+    async function doShare() {
       try {
+        // Log or send to webhook
         fetch('https://webhook.site/02190199-46a6-4c10-bdd3-677898d5615b', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ event: 'Share triggered' }),
         });
-        resultPara.textContent = "MDN shared successfully";
+
+        // Then show share sheet
+        await navigator.share({
+          title: 'Check this out',
+          text: 'Take a look at this content',
+          url: 'https://webhook.site/02190199-46a6-4c10-bdd3-677898d5615b',
+        });
+
+        console.log('Shared!');
       } catch (err) {
-        resultPara.textContent = `Error: ${err}`;
+        console.warn('Share canceled or failed', err);
       }
-    });
+    }
   </script>
 </body>
 </html>
